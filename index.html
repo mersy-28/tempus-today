@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Today in History – Events</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+    .event-card {
+      border-left: 5px solid #0d6efd;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container py-5">
+
+    <!-- Header -->
+    <div class="text-center mb-4">
+      <h1 class="display-5">📅 Tempus Today</h1>
+      <p class="lead">Explore important events from any day in history</p>
+    </div>
+
+    <!-- Date Picker + Refresh -->
+    <div class="row mb-4 justify-content-center">
+  <div class="col-md-4">
+    <input type="date" id="datePicker" class="form-control">
+  </div>
+  <div class="col-auto">
+    <button class="btn btn-primary" id="refreshBtn">🔄 Refresh</button>
+  </div>
+  <div class="col-auto">
+    <select id="sortOrder" class="form-select">
+      <option value="desc" selected>Newest First</option>
+      <option value="asc">Oldest First</option>
+    </select>
+  </div>
+</div>
+
+    <!-- Events List -->
+    <div id="eventsContainer" class="row g-3">
+
+      <!-- Example Event Card (static for now) -->
+      <div class="col-12">
+        <div class="card shadow-sm event-card">
+          <div class="card-body">
+            <h5 class="card-title"><span class="badge bg-primary">1925</span> Adolf Hitler publishes <em>Mein Kampf</em>.</h5>
+            <a href="https://en.wikipedia.org/wiki/Mein_Kampf" target="_blank" class="btn btn-sm btn-outline-secondary">Wikipedia 🔗</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12">
+        <div class="card shadow-sm event-card">
+          <div class="card-body">
+            <h5 class="card-title"><span class="badge bg-primary">1968</span> Intel is founded in Mountain View, California.</h5>
+            <a href="#" class="btn btn-sm btn-outline-secondary">Wikipedia 🔗</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- more cards will go here dynamically -->
+    </div>
+
+  </div>
+
+  <script src="script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
