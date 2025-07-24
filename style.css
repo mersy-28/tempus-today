@@ -173,3 +173,31 @@
         padding-left: 1.5rem;
       }
     }
+
+.site-footer {
+  margin-top: 2.5rem;
+  padding: 1rem 0;
+  background-color: #f8f9fa;
+  color: #6c757d; 
+  font-size: 0.9rem;
+}
+
+.site-footer .brand {
+  font-weight: 600;
+}
+
+.site-footer .heart {
+  color: #e25555;
+  font-size: 1.1em;
+  vertical-align: middle;
+}
+
+.site-footer a {
+  color: #6c757d;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.site-footer a:hover {
+  text-decoration: underline;
+}
