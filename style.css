@@ -158,7 +158,117 @@
       font-weight: 500;
     }
 
+    .navigation-tabs {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      margin-bottom: 2rem;
+    }
+
+    .nav-tab {
+      background: white;
+      border: 2px solid #e9ecef;
+      border-radius: 25px;
+      padding: 0.75rem 1.5rem;
+      font-weight: 500;
+      color: #6c757d;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .nav-tab:hover {
+      border-color: #667eea;
+      color: #667eea;
+      transform: translateY(-2px);
+    }
+
+    .nav-tab.active {
+      background: var(--primary-gradient);
+      border-color: transparent;
+      color: white;
+      box-shadow: var(--card-shadow);
+    }
+
+    .favorites-count {
+      background: rgba(255, 255, 255, 0.3);
+      color: white;
+      border-radius: 50%;
+      padding: 0.2rem 0.6rem;
+      font-size: 0.8rem;
+      margin-left: 0.5rem;
+      font-weight: 600;
+    }
+
+    .nav-tab:not(.active) .favorites-count {
+      background: var(--secondary-gradient);
+      color: white;
+    }
+
+    .favorites-controls {
+      background: white;
+      border-radius: 15px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      box-shadow: var(--card-shadow);
+      border-left: 5px solid #e25555;
+    }
+
+    .favorite-btn {
+      background: none;
+      border: none;
+      color: #ccc;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      padding: 0.5rem;
+      border-radius: 50%;
+    }
+
+    .favorite-btn:hover {
+      color: #e25555;
+      background: rgba(226, 85, 85, 0.1);
+    }
+
+    .favorite-btn.favorited {
+      color: #e25555;
+      animation: heartBeat 0.3s ease-in-out;
+    }
+
+    @keyframes heartBeat {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+      100% { transform: scale(1); }
+    }
+
+    .empty-favorites {
+      text-align: center;
+      padding: 3rem;
+      background: white;
+      border-radius: 15px;
+      box-shadow: var(--card-shadow);
+      color: #6c757d;
+    }
+
+    .empty-favorites i {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      color: #e9ecef;
+    }
+
     @media (max-width: 768px) {
+      .navigation-tabs {
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      
+      .nav-tab {
+        width: 100%;
+        max-width: 250px;
+        text-align: center;
+      }
+      
       .main-header {
         padding: 1.5rem;
         border-radius: 15px;
