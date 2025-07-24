@@ -1,0 +1,175 @@
+:root {
+      --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      --card-shadow: 0 8px 25px rgba(0,0,0,0.1);
+      --card-hover-shadow: 0 12px 35px rgba(0,0,0,0.15);
+    }
+
+    body {
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      min-height: 100vh;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .main-header {
+      background: var(--primary-gradient);
+      border-radius: 20px;
+      color: white;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      box-shadow: var(--card-shadow);
+    }
+
+    .main-header h1 {
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .main-header .lead {
+      opacity: 0.9;
+      font-size: 1.1rem;
+    }
+
+    .controls-section {
+      background: white;
+      border-radius: 15px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      box-shadow: var(--card-shadow);
+    }
+
+    .event-card {
+      background: white;
+      border: none;
+      border-radius: 15px;
+      box-shadow: var(--card-shadow);
+      transition: all 0.3s ease;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .event-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 5px;
+      height: 100%;
+      background: var(--secondary-gradient);
+    }
+
+    .event-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--card-hover-shadow);
+    }
+
+    .event-card .card-body {
+      padding: 1.5rem;
+      padding-left: 2rem;
+    }
+
+    .year-badge {
+      background: var(--primary-gradient) !important;
+      color: white;
+      font-weight: 600;
+      padding: 0.5rem 1rem;
+      border-radius: 50px;
+      font-size: 0.9rem;
+    }
+
+    .event-text {
+      color: #2c3e50;
+      line-height: 1.6;
+      margin: 1rem 0;
+      font-size: 1.05rem;
+    }
+
+    .wiki-btn {
+      background: var(--secondary-gradient);
+      border: none;
+      color: white;
+      border-radius: 25px;
+      padding: 0.5rem 1.2rem;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+
+    .wiki-btn:hover {
+      color: white;
+      transform: scale(1.05);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+
+    .form-control, .form-select {
+      border-radius: 10px;
+      border: 2px solid #e9ecef;
+      padding: 0.75rem 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .form-control:focus, .form-select:focus {
+      border-color: #667eea;
+      box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+    }
+
+    .btn-primary {
+      background: var(--primary-gradient);
+      border: none;
+      border-radius: 10px;
+      padding: 0.75rem 1.5rem;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+      transform: scale(1.02);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+
+    .loading-container {
+      text-align: center;
+      padding: 3rem;
+      background: white;
+      border-radius: 15px;
+      box-shadow: var(--card-shadow);
+    }
+
+    .spinner-border {
+      width: 3rem;
+      height: 3rem;
+      border-width: 0.3rem;
+    }
+
+    .fade-in {
+      animation: fadeIn 0.5s ease-in;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .event-count {
+      background: var(--secondary-gradient);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 25px;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    @media (max-width: 768px) {
+      .main-header {
+        padding: 1.5rem;
+        border-radius: 15px;
+      }
+      
+      .controls-section {
+        padding: 1rem;
+      }
+      
+      .event-card .card-body {
+        padding: 1rem;
+        padding-left: 1.5rem;
+      }
+    }
