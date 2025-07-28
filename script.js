@@ -10,6 +10,8 @@ document.addEventListener("DOMContentLoaded", () => {
   // Navigation elements
   const eventsTab = document.getElementById("eventsTab");
   const favoritesTab = document.getElementById("favoritesTab");
+  const birthsTab = document.getElementById("birthsTab");
+  const deathsTab = document.getElementById("deathsTab");
   const favoritesCount = document.getElementById("favoritesCount");
   const controlsSection = document.getElementById("controlsSection");
   const favoritesControls = document.getElementById("favoritesControls");
@@ -17,6 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const clearFavoritesBtn = document.getElementById("clearFavoritesBtn");
   
   let currentView = "events";
+  let currentCategory = "events"; 
   let currentEvents = [];
 
   // helpers 
@@ -163,48 +166,68 @@ const displayFavorites = () => {
   });
 };
 
+// tab switching helper
+
+const switchCategory = (cat, tabEl) => {
+  currentView     = "events"; 
+  currentCategory = cat;
+  document.querySelectorAll(".nav-tab").forEach(t => t.classList.remove("active"));
+  tabEl.classList.add("active");
+  controlsSection.classList.toggle("d-none", false);
+  favoritesControls.classList.add("d-none");
+  eventCount.classList.toggle("d-none", false);
+  fetchAndDisplay();
+};
+
+
 // fetching data
 
 const fetchAndDisplay = async () => {
   if (currentView !== "events") return;
-
-  const [year, month, day] = datePicker.value.split("-");
-  eventsContainer.innerHTML = `<p>Loading...</p>`;
-
+  eventsContainer.innerHTML = `<p>Loading…</p>`;
+  const [ , month, day ] = datePicker.value.split("-");
   try {
-    const res = await fetch(`${API_URL}/date/${+month}/${+day}`);
+    const res  = await fetch(`${API_URL}/date/${+month}/${+day}`);
     if (!res.ok) throw new Error(res.statusText);
     const json = await res.json();
-    currentEvents = json.data.Events;
+    
+    const { Events, Births, Deaths, Holidays } = json.data;
+  
+    switch (currentCategory) {
+      case "births":   currentEvents = Births;   break;
+      case "deaths":   currentEvents = Deaths;   break;
+      default:         currentEvents = Events;
+    }
     displayEvents(currentEvents);
   } catch (err) {
     console.error(err);
-    eventsContainer.innerHTML = `<p class="text-danger">Failed to load events.</p>`;
+    eventsContainer.innerHTML = `
+      <p class="text-danger">
+        Failed to load ${currentCategory}.
+      </p>
+    `;
   }
 };
 
 // tab & controls handling
-
-// daily events tab 
-eventsTab.addEventListener("click", () => {
-  currentView = "events";
-  eventsTab.classList.add("active");
-  favoritesTab.classList.remove("active");
-  controlsSection.classList.remove("d-none");
-  favoritesControls.classList.add("d-none");
-  eventCount.classList.remove("d-none");
-  fetchAndDisplay();
-});
+// daily events tab
+eventsTab.addEventListener("click", () => switchCategory("events", eventsTab));
 
 // favorites tab
 favoritesTab.addEventListener("click", () => {
-    currentView = "favorites";
-    eventsTab.classList.remove("active");
-    favoritesTab.classList.add("active");
-    controlsSection.classList.add("d-none");
-    favoritesControls.classList.remove("d-none");
-    displayFavorites();
-  });
+  document.querySelectorAll(".nav-tab").forEach(t => t.classList.remove("active"));
+  favoritesTab.classList.add("active");
+  currentView = "favorites";
+  controlsSection.classList.add("d-none");
+  favoritesControls.classList.remove("d-none");
+  displayFavorites();
+});
+
+// births tab
+birthsTab.addEventListener("click", () => switchCategory("births", birthsTab));
+
+// deaths tab
+deathsTab.addEventListener("click", () => switchCategory("deaths", deathsTab));
 
   // other controls
   refreshBtn.addEventListener("click", fetchAndDisplay);
