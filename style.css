@@ -6,6 +6,8 @@
     }
 
     body {
+      display: flex;
+      flex-direction: column;
       background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
       min-height: 100vh;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -190,19 +192,19 @@
       box-shadow: var(--card-shadow);
     }
 
-    .favorites-count {
-      background: rgba(255, 255, 255, 0.3);
-      color: white;
-      border-radius: 50%;
-      padding: 0.2rem 0.6rem;
-      font-size: 0.8rem;
-      margin-left: 0.5rem;
+    .navigation-tabs .nav-tab .favorites-count {
+      display: inline-flex !important;
+      align-items: center;
+      justify-content: center;
+      width: 1.5rem !important;
+      height: 1.5rem !important;
+      padding: 0 !important;
+      background: var(--secondary-gradient) !important;
+      color: #fff !important;
+      border-radius: 50% !important;
+      font-size: 0.75rem;
       font-weight: 600;
-    }
-
-    .nav-tab:not(.active) .favorites-count {
-      background: var(--secondary-gradient);
-      color: white;
+      margin-left: 0.5rem;
     }
 
     .favorites-controls {
@@ -287,7 +289,7 @@
     }
 
 .site-footer {
-  margin-top: 2.5rem;
+  margin-top: auto;
   padding: 1rem 0;
   background-color: #f8f9fa;
   color: #6c757d; 
@@ -312,4 +314,8 @@
 
 .site-footer a:hover {
   text-decoration: underline;
+}
+
+.container {
+  flex: 1 0 auto;
 }

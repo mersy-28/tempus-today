@@ -120,9 +120,8 @@ const displayFavorites = () => {
   if (currentView !== "favorites") return;
 
   eventCount.classList.add("d-none");
-  let favs = getFavorites();
 
-  // sort by chosen order
+  let favs = getFavorites();
   switch (favoritesSort.value) {
     case "newest":
       favs = favs.slice().reverse();
@@ -134,7 +133,7 @@ const displayFavorites = () => {
       favs.sort((a, b) => parseYear(b.year) - parseYear(a.year));
       break;
   }
-  
+
   if (favs.length === 0) {
     eventsContainer.innerHTML = `<p>No favorites yet.</p>`;
     return;
@@ -143,20 +142,20 @@ const displayFavorites = () => {
   // build more HTML
   let html = "";
   favs.forEach((evt, idx) => {
-    const link = (evt.links && evt.links[0]) ? evt.links[0].link : "#";
+    const url = evt.links?.[0]?.link || "#";
     html += `
       <div class="col-12">
-          <div class="card event-card">
-            <div class="card-body d-flex justify-content-between align-items-center">
-              <div>
-                <span class="year">${evt.year}</span>
-                <p>${evt.text}</p>
-              </div>
+        <div class="card event-card">
+          <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <span class="year">${evt.year}</span>
               <button class="favorite-btn favorited" data-index="${idx}">♥</button>
             </div>
-            <a href="${link}" target="_blank">Read more</a>
+            <p>${evt.text}</p>
+            <a href="${url}" target="_blank">Read more</a>
           </div>
-        </div>`;
+        </div>
+      </div>`;
   });
 
   eventsContainer.innerHTML = html;
