@@ -19,7 +19,7 @@ A vanilla JavaScript web app that displays important historical events on any da
 ## 🛠️ Built With
 
 - HTML5
-- CSS3 / SCSS
+- CSS3
 - [Bootstrap 5](https://getbootstrap.com/)
 - Vanilla JavaScript (ES6+)
 - MuffinLabs REST API
