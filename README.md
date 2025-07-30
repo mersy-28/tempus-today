@@ -3,7 +3,7 @@
 A vanilla JavaScript web app that displays important historical events on any day of the year.
 
 ## Powered by: 
-[MuffinLabs "Today in History" API](https://github.com/johnymontana/on-this-day)
+[MuffinLabs "Today in History" API](https://github.com/muffinista/really-simple-history-api)
 
 [GTranslate Language Selector Widget](https://gtranslate.io/website-translator-widget)
 
