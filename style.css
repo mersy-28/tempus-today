@@ -322,3 +322,20 @@
 .container {
   flex: 1 0 auto;
 }
+
+.wiki-summary {
+  color: #333;
+  line-height: 1.5;
+}
+.wiki-btn {
+  background: var(--primary-gradient);
+  border: none;
+  color: whitesmoke !important;
+  border-radius: 25px;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.9rem;
+  transition: transform 0.2s ease;
+}
+.wiki-btn:hover {
+  transform: translateY(-2px);
+}

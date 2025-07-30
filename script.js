@@ -77,6 +77,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // rendering functions
 
+    async function fetchWikiSummary(title, containerEl, readMoreUrl) {
+      try {
+        const url = `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(title)}`;
+        const res = await fetch(url);
+        if (!res.ok) throw new Error(res.statusText);
+        const data = await res.json();
+        containerEl.innerHTML = `
+          <p>${data.extract}</p>
+          <a href="${readMoreUrl}" target="_blank">Read more</a>
+        `;
+      } catch (err) {
+        containerEl.textContent = "Summary not available.";
+      }
+    }
+
   const displayEvents = (events) => {
     if (currentView !== "events") return;
 
@@ -103,13 +118,41 @@ document.addEventListener("DOMContentLoaded", () => {
                   <button class="favorite-btn${isFav ? " favorited" : ""}" data-index="${idx}">${heart}</button>
                 </div>
                 <p>${evt.text}</p>
-                <a href="${link}" target="_blank">Read more</a>
+
+                <button class="wiki-btn btn btn-sm mt-2" data-index="${idx}">
+                  <i class="fas fa-info-circle"></i>
+                  Learn More
+                </button>
+                <div class="wiki-summary mt-2 d-none" id="summary-${idx}">
+                  Loading…
+                </div>
+
               </div>
             </div>
           </div>`;
     });
 
     eventsContainer.innerHTML = html;
+
+    
+    document.querySelectorAll(".wiki-btn").forEach(btn => {
+      btn.addEventListener("click", async () => {
+        const idx = +btn.dataset.index;
+        const evt = sorted[idx];
+        const summaryEl = document.getElementById(`summary-${idx}`);
+
+        // On first click, load the summary
+        if (!summaryEl.dataset.loaded) {
+         const title = evt.links?.[0]?.title || evt.text.split(" ").slice(0,3).join("_");
+         const readMoreUrl = evt.links?.[0]?.link || "#";
+         await fetchWikiSummary(title, summaryEl, readMoreUrl);
+         summaryEl.dataset.loaded = "true";
+        }
+
+        // Toggle visibility
+        summaryEl.classList.toggle("d-none");
+      });
+    });
 
     // hearts
     document.querySelectorAll(".favorite-btn").forEach((btn, i ) => {
@@ -153,7 +196,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 <button class="favorite-btn favorited" data-index="${idx}">♥</button>
               </div>
               <p>${evt.text}</p>
-              <a href="${url}" target="_blank">Read more</a>
+              <a href="${url}" target="_blank">Wikipedia</a>
             </div>
           </div>
         </div>`;
