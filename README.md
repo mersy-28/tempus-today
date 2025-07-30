@@ -13,6 +13,7 @@ A vanilla JavaScript web app that displays important historical events on any da
 
 - View important **historical events** from **today** or **any day you choose**
 - See all notable **births** and **deaths** that occurred on the chosen day
+- A button that displays a single **randomly chosen** event 
 - Toggle between **newest first** and **oldest first**
 - Wikipedia links for additional reading
 - Clean and responsive **Bootstrap 5 UI**

@@ -1,6 +1,7 @@
 :root {
       --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      --tertiary-gradient: linear-gradient(135deg, #69c5fa 0%, #5151e5 100%);
       --card-shadow: 0 8px 25px rgba(0,0,0,0.1);
       --card-hover-shadow: 0 12px 35px rgba(0,0,0,0.15);
     }
@@ -10,7 +11,7 @@
       flex-direction: column;
       background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
       min-height: 100vh;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
     }
 
     .main-header {
@@ -103,7 +104,7 @@
     }
 
     .form-control, .form-select {
-      border-radius: 10px;
+      border-radius: 30px !important;
       border: 2px solid #e9ecef;
       padding: 0.75rem 1rem;
       transition: all 0.3s ease;
@@ -115,12 +116,13 @@
     }
 
     .btn-primary {
-      background: var(--primary-gradient);
+      background: var(--tertiary-gradient);
       border: none;
-      border-radius: 10px;
+      border-radius:30px !important;
       padding: 0.75rem 1.5rem;
       font-weight: 500;
       transition: all 0.3s ease;
+      overflow: hidden;
     }
 
     .btn-primary:hover {
@@ -186,10 +188,11 @@
     }
 
     .nav-tab.active {
-      background: var(--primary-gradient);
-      border-color: transparent;
+      background: var(--secondary-gradient);
+      border-color: none;
       color: white;
       box-shadow: var(--card-shadow);
+      background-clip: padding-box;
     }
 
     .navigation-tabs .nav-tab .favorites-count {
@@ -199,7 +202,7 @@
       width: 1.5rem !important;
       height: 1.5rem !important;
       padding: 0 !important;
-      background: var(--secondary-gradient) !important;
+      background: var(--tertiary-gradient) !important;
       color: #fff !important;
       border-radius: 50% !important;
       font-size: 0.75rem;
@@ -217,7 +220,7 @@
     }
 
     .favorite-btn {
-      background: none;
+      background: transparent;
       border: none;
       color: #bbb;
       font-size: 1.5rem;
@@ -226,7 +229,7 @@
       padding: 0.2rem;
       border-radius: 50%;
       line-height: 1;
-      transition: color 0.3s ease, background 0.3s ease;
+      transition: color 0.3s ease; background 0.3s ease;
     }
 
     .favorite-btn:hover {
