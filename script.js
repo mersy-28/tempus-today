@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const eventCount = document.getElementById("eventCount");
   const countText = document.getElementById("countText");
   
-  // Navigation elements
+  // navigation elements
   const eventsTab = document.getElementById("eventsTab");
   const favoritesTab = document.getElementById("favoritesTab");
   const birthsTab = document.getElementById("birthsTab");

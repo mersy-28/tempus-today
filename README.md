@@ -2,7 +2,10 @@
 
 A vanilla JavaScript web app that displays important historical events on any day of the year.
 
-## Powered by the [MuffinLabs "Today in History" API](https://github.com/johnymontana/on-this-day)
+## Powered by: 
+[MuffinLabs "Today in History" API](https://github.com/johnymontana/on-this-day)
+
+[GTranslate Language Selector Widget](https://gtranslate.io/website-translator-widget)
 
 ---
 
@@ -13,6 +16,7 @@ A vanilla JavaScript web app that displays important historical events on any da
 - Toggle between **newest first** and **oldest first**
 - Wikipedia links for additional reading
 - Clean and responsive **Bootstrap 5 UI**
+- Choose between **English** & **Français (CA)**
 
 ---
 
@@ -23,5 +27,6 @@ A vanilla JavaScript web app that displays important historical events on any da
 - [Bootstrap 5](https://getbootstrap.com/)
 - Vanilla JavaScript (ES6+)
 - MuffinLabs REST API
+- GTranslate Language Selector Widget
 
 ---
