@@ -66,6 +66,16 @@ document.addEventListener("DOMContentLoaded", () => {
     currentView === "events" ? displayEvents(currentEvents) : displayFavorites();
   };
 
+  const bindFavoriteButtons = (events) => {
+    document.querySelectorAll(".favorite-btn").forEach((btn, i) => {
+      btn.addEventListener("click", () => {
+        toggleFavorite(events[i]);
+        // re-render events to update heart icons
+        displayEvents(events);
+      });
+    });
+  };
+
   // convert "44 BC" to -44
   const parseYear = (str) => {
     if (str.includes("BC")) {
@@ -75,13 +85,12 @@ document.addEventListener("DOMContentLoaded", () => {
     return isNaN(n) ? 0 : n;
   };
 
-  // rendering functions
-
-    async function fetchWikiSummary(title, containerEl, readMoreUrl) {
-      try {
-        const url = `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(title)}`;
-        const res = await fetch(url);
-        if (!res.ok) throw new Error(res.statusText);
+  // fetch Wikipedia summary using the REST API
+  async function fetchWikiSummary(title, containerEl, readMoreUrl) {
+    try {
+      const url = `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(title)}`;
+      const res = await fetch(url);
+      if (!res.ok) throw new Error(res.statusText);
         const data = await res.json();
         containerEl.innerHTML = `
           <p>${data.extract}</p>
@@ -90,10 +99,35 @@ document.addEventListener("DOMContentLoaded", () => {
       } catch (err) {
         containerEl.textContent = "Summary not available.";
       }
-    }
+    };
 
+  const bindWikiButtons = (events) => {
+    document.querySelectorAll(".wiki-btn").forEach((btn, i) => {
+      btn.addEventListener("click", async () => {
+        const evt = events[i];
+        const summaryEl = document.getElementById(`summary-${i}`);
+
+        if (!summaryEl.dataset.loaded) {
+          const title = evt.links?.[0]?.title || evt.text.split(" ").slice(0,3).join("_");
+          const readMoreUrl = evt.links?.[0]?.link || "#";
+          await fetchWikiSummary(title, summaryEl, readMoreUrl);
+          summaryEl.dataset.loaded = "true";
+        }
+
+        summaryEl.classList.toggle("d-none");
+      });
+    });
+  };
+
+   // rendering functions
+
+   // display events in the main container
   const displayEvents = (events) => {
     if (currentView !== "events") return;
+
+    const [ , pickerMonth, pickerDay ] = datePicker.value.split("-");
+    const monthIndex = parseInt(pickerMonth, 10) - 1;
+    const dayNumber = parseInt(pickerDay, 10);
 
     // sort
     const dir = sortOrder.value === "asc" ? 1 : -1;
@@ -106,58 +140,39 @@ document.addEventListener("DOMContentLoaded", () => {
     // build HTML
     let html = "";
     sorted.forEach((evt, idx) => {
+
+      const evtDate = new Date(parseInt(evt.year,10), monthIndex, dayNumber);
+      const formattedDate = evtDate.toLocaleDateString("en-US", {
+        month: "long", day: "numeric", year: "numeric"
+      });
+
       const isFav = isFavorited(evt);
       const heart = isFavorited(evt) ? "♥" : "♡";
       const link = (evt.links && evt.links[0]) ? evt.links[0].link : "#";
       html += `
         <div class="col-12">
-            <div class="card event-card">
-              <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center mb-2">
-                  <span class="year">${evt.year}</span>
-                  <button class="favorite-btn${isFav ? " favorited" : ""}" data-index="${idx}">${heart}</button>
-                </div>
-                <p>${evt.text}</p>
-
-                <button class="wiki-btn btn btn-sm mt-2" data-index="${idx}">
-                  <i class="fas fa-info-circle"></i>
-                  Learn More
+          <div class="card event-card">
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <!-- full date instead of just year -->
+                <span class="year">${formattedDate}</span>
+                <button class="favorite-btn${isFav ? " favorited" : ""}" data-index="${idx}">
+                  ${heart}
                 </button>
-                <div class="wiki-summary mt-2 d-none" id="summary-${idx}">
-                  Loading…
-                </div>
-
               </div>
+              <p>${evt.text}</p>
+              <button class="wiki-btn btn btn-sm mt-2" data-index="${idx}">
+                <i class="fas fa-info-circle"></i> Learn More
+              </button>
+              <div class="wiki-summary mt-2 d-none" id="summary-${idx}">Loading…</div>
             </div>
-          </div>`;
+          </div>
+        </div>`;
     });
 
     eventsContainer.innerHTML = html;
-
-    
-    document.querySelectorAll(".wiki-btn").forEach(btn => {
-      btn.addEventListener("click", async () => {
-        const idx = +btn.dataset.index;
-        const evt = sorted[idx];
-        const summaryEl = document.getElementById(`summary-${idx}`);
-
-        // On first click, load the summary
-        if (!summaryEl.dataset.loaded) {
-         const title = evt.links?.[0]?.title || evt.text.split(" ").slice(0,3).join("_");
-         const readMoreUrl = evt.links?.[0]?.link || "#";
-         await fetchWikiSummary(title, summaryEl, readMoreUrl);
-         summaryEl.dataset.loaded = "true";
-        }
-
-        // Toggle visibility
-        summaryEl.classList.toggle("d-none");
-      });
-    });
-
-    // hearts
-    document.querySelectorAll(".favorite-btn").forEach((btn, i ) => {
-      btn.addEventListener("click", () => toggleFavorite(sorted[i]));
-    });
+    bindWikiButtons(sorted);
+    bindFavoriteButtons(sorted);
   };
 
   const displayFavorites = () => {
