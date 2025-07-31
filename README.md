@@ -19,7 +19,7 @@ A vanilla JavaScript web app that displays important historical events on any da
 - A button that displays a single **randomly chosen** event
 - **Learn More** button that displays the first paragraph from that event's Wikipedia page (With Wikipedia links for additional reading)
 - Toggle between **newest first** and **oldest first**
-- Choose between **English** & **Français (CA)**
+- Toggle between **English** & **Français (CA)**
 - Clean and responsive **Bootstrap 5 UI**
 
 ---
