@@ -1,0 +1,24 @@
+{
+  "name": "tempustoday",
+  "version": "1.0.0",
+  "description": "A vanilla JavaScript web app that displays important historical events on any day of the year.",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mersy-28/tempus-today.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mersy-28/tempus-today/issues"
+  },
+  "homepage": "https://github.com/mersy-28/tempus-today#readme",
+  "dependencies": {
+    "dotenv": "^17.2.1",
+    "node-fetch": "^3.3.2"
+  }
+}

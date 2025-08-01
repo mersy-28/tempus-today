@@ -76,7 +76,8 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   };
 
-  // convert "44 BC" to -44
+  // parse year from string
+  // handles BC years and negative numbers
   const parseYear = (str) => {
     if (str.includes("BC")) {
       return -parseInt(str.replace("BC", "").trim(), 10);
